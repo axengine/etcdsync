@@ -118,7 +118,8 @@ func (m *Mutex) lock() (err error) {
 		// Get the already node's value.
 		resp, err = m.kapi.Get(m.ctx, m.key, nil)
 		if err != nil {
-			return err
+			m.debug("Get node %v err %v", m.key, err)
+			continue
 		}
 		m.debug("Get node %v OK", m.key)
 		watcherOptions := &client.WatcherOptions{
